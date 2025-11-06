@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ url_for('static', filename='images/pic01.jpg') }}');">
+        <div class="text-center px-4">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-yellow-500">Bem-vindo ao<br>Grupo Pagode</h1>
+            <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto">
+                O melhor do pagode brasileiro está aqui!<br>
+                Acompanhe nossos shows, ouça nossas músicas e se prepare para muita animação!
+            </p>
+            <a href="#shows" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full transition transform hover:scale-105">
+                Próximos Shows
+            </a>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#shows" class="text-yellow-500 text-4xl"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </section>
+
+    <section id="shows" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-yellow-500">Próximo Show</h2>
+            {% if shows %}
+            <div class="max-w-4xl mx-auto bg-gray-900 rounded-lg overflow-hidden shadow-2xl">
+                <div class="md:flex">
+                    <div class="md:w-1/2">
+                        <img src="{{ url_for('static', filename='images/pic01.jpg') }}" alt="Show" class="w-full h-full object-cover">
+                    </div>
+                    <div class="md:w-1/2 p-8">
+                        <span class="text-yellow-500 text-sm font-semibold">{{ shows[0].data }}</span>
+                        <h3 class="text-3xl font-bold mt-2 mb-4">{{ shows[0].local }}</h3>
+                        <p class="text-gray-300 mb-2"><i class="fas fa-map-marker-alt mr-2 text-yellow-500"></i>{{ shows[0].cidade }}</p>
+                        <p class="text-gray-300 mb-6"><i class="fas fa-clock mr-2 text-yellow-500"></i>{{ shows[0].horario }}</p>
+                        <a href="{{ url_for('shows') }}" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded transition">
+                            Ver Agenda Completa
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-yellow-500">Agenda de Shows</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% for show in shows[1:4] %}
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
+                    <img src="{{ url_for('static', filename='images/pic0' ~ (loop.index + 1) ~ '.jpg') }}" alt="{{ show.local }}" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-yellow-500 text-sm font-semibold">{{ show.data }}</span>
+                        <h3 class="text-xl font-bold mt-2 mb-2">{{ show.local }}</h3>
+                        <p class="text-gray-400 mb-4">{{ show.cidade }} - {{ show.horario }}</p>
+                        <a href="{{ url_for('shows') }}" class="text-yellow-500 hover:text-yellow-400 font-semibold">
+                            Ver Detalhes <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-yellow-500">Músicas em Destaque</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% for musica in musicas %}
+                <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg">
+                    <div class="relative" style="padding-bottom: 56.25%;">
+                        <div class="video-thumbnail absolute inset-0 cursor-pointer bg-cover bg-center" 
+                             data-video-id="{{ musica.video_id }}" 
+                             style="background-image: url('{{ musica.thumbnail }}');">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 hover:bg-opacity-20 transition flex items-center justify-center">
+                                <button class="play-button bg-yellow-500 hover:bg-yellow-600 rounded-full w-20 h-20 flex items-center justify-center transition transform hover:scale-110">
+                                    <i class="fas fa-play text-gray-900 text-2xl ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">{{ musica.titulo }}</h3>
+                        <a href="{{ url_for('musicas') }}" class="text-yellow-500 hover:text-yellow-400 text-sm font-semibold">
+                            Ver Mais <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-yellow-500">Nossos Integrantes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                {% for integrante in integrantes %}
+                <div class="text-center">
+                    <div class="relative w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-yellow-500">
+                        <img src="{{ url_for('static', filename='images/pic0' ~ (loop.index % 9 + 1) ~ '.jpg') }}" 
+                             alt="{{ integrante.nome }}" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">{{ integrante.nome }}</h3>
+                    <p class="text-yellow-500">{{ integrante.funcao }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoThumbnails = document.querySelectorAll('.video-thumbnail');
+        
+        videoThumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', function() {
+                const videoId = this.getAttribute('data-video-id');
+                const container = this.parentElement;
+                
+                container.innerHTML = `
+                    <iframe 
+                        class="absolute inset-0 w-full h-full" 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                `;
+            });
+        });
+    });
+</script>
+{% endblock %}
+

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Sobre - Grupo Pagode{% endblock %}
+
+{% block content %}
+    <section class="py-20 bg-gradient-to-r from-yellow-600 to-yellow-500">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 text-gray-900">Sobre o Grupo</h1>
+            <p class="text-xl text-gray-800">Conheça nossa história e nossos integrantes</p>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-12">
+                    <img src="{{ url_for('static', filename='images/pic01.jpg') }}" alt="Grupo" class="w-full h-96 object-cover rounded-lg shadow-2xl">
+                </div>
+                <div class="prose prose-invert max-w-none">
+                    <p class="text-xl text-gray-300 mb-6">
+                        O <span class="text-yellow-500 font-bold">Grupo Pagode</span> nasceu da paixão pela música brasileira e pelo samba.
+                    </p>
+                    <p class="text-xl text-gray-300 mb-6">
+                        Com anos de experiência nos palcos, sempre com muita energia e animação!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-yellow-500">Nossos Integrantes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {% for integrante in integrantes %}
+                <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg text-center hover:shadow-2xl transition transform hover:-translate-y-2">
+                    <div class="relative w-full" style="padding-bottom: 100%;">
+                        <img src="{{ url_for('static', filename='images/pic0' ~ (loop.index % 9 + 1) ~ '.jpg') }}" 
+                             alt="{{ integrante.nome }}" 
+                             class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">{{ integrante.nome }}</h3>
+                        <p class="text-yellow-500 font-semibold">{{ integrante.funcao }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+

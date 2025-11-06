@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Shows - Grupo Pagode{% endblock %}
+
+{% block content %}
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold mb-4 text-yellow-500">Agenda de Shows</h1>
+                <p class="text-xl text-gray-300">Confira onde vamos tocar e venha curtir com a gente!</p>
+            </div>
+
+            {% if shows %}
+            <div class="max-w-4xl mx-auto space-y-6">
+                {% for show in shows %}
+                <div class="bg-gray-900 rounded-lg p-6 shadow-lg hover:shadow-2xl transition border-l-4 border-yellow-500">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <span class="text-yellow-500 text-sm font-semibold bg-yellow-500/20 px-3 py-1 rounded-full">
+                                {{ show.data }}
+                            </span>
+                            <h2 class="text-2xl font-bold mt-2 mb-2">{{ show.local }}</h2>
+                            <div class="space-y-1 text-gray-300">
+                                <p><i class="fas fa-map-marker-alt mr-2 text-yellow-500"></i>{{ show.cidade }}</p>
+                                <p><i class="fas fa-clock mr-2 text-yellow-500"></i>{{ show.horario }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center py-12">
+                <i class="fas fa-calendar-times text-6xl text-gray-600 mb-4"></i>
+                <p class="text-xl text-gray-400">Não há shows agendados no momento.</p>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
+
