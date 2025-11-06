@@ -54,3 +54,12 @@ instance/
 *.tmp
 *.temp
 
+# Arquivos antigos do template (não usados mais)
+# Os arquivos HTML estão em templates/ e docs/
+/elements.html
+/generic.html
+/index.html
+/README.txt
+/criar-repo.sh
+/PUBLICAR.md
+

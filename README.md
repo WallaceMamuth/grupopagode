@@ -41,18 +41,29 @@ O servidor estará disponível em: `http://localhost:5000`
 
 ```
 grupopagode/
-├── app.py                 # Aplicação Flask principal
+├── app.py                 # Aplicação Flask principal (desenvolvimento local)
+├── build.py              # Script para gerar site estático
 ├── requirements.txt       # Dependências do projeto
-├── templates/            # Templates HTML (Jinja2)
+├── templates/            # Templates HTML (Jinja2) - usado no Flask
 │   ├── base.html
 │   ├── index.html
 │   ├── shows.html
 │   ├── musicas.html
 │   ├── sobre.html
 │   └── contato.html
-└── static/               # Arquivos estáticos
-    └── images/          # Imagens do projeto
+├── static/               # Arquivos estáticos do Flask
+│   └── images/          # Imagens do projeto
+└── docs/                 # Site estático gerado (para GitHub Pages)
+    ├── index.html
+    ├── shows.html
+    ├── musicas.html
+    ├── sobre.html
+    ├── contato.html
+    └── static/          # Cópia das imagens para GitHub Pages
+        └── images/
 ```
+
+**Nota:** A pasta `docs/` é gerada automaticamente pelo `build.py` e é usada pelo GitHub Pages.
 
 ## 🎨 Funcionalidades
 
